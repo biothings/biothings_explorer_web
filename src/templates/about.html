@@ -18,7 +18,7 @@
     <div class="header">
         <nav class="navbar navbar-light bg-light">
             <a class="navbar-brand" href="#">
-                <img src="../static/img/biothings-explorer.svg" width="30" height="30" alt="">
+                <img src="./static/img/biothings-explorer.svg" width="30" height="30" alt="">
             </a>
         </nav>
     </div>
@@ -47,14 +47,14 @@
                 <h2 id="overview">Overview</h2>
                 <p>BioThings Explorer is an ongoing project supported by <a href="https://ncats.nih.gov/translator" target="_blank">the NCATS Data Translator project</a> that integrates and connects a variety of biomedical information from different resources to help researchers generate new ideas for preventing, diagnosing and treating diseases. Questions you could ask BioThings Explorer to answer includes: <b>“What drugs might be used to treat NGLY1-deficiency?”</b>, <b>“What is the mechanism for imatinib's effect on asthma?”</b>.</p>
                 <h2 id="architecture">Architecture</h2>
-                <img src="../static/img/bte_architecture.png">
+                <img src="./static/img/bte_architecture.png">
                 <h3>A distributed system</h3>
                 <p>Most data integration efforts are based on building centralized data resources. These efforts typically involve building resource-specific data ingestion parsers, the outputs of which are assembled into knowledge graphs and loaded into a local database.</p>
                 <p>BioThings Explorer takes a different and complementary approach to data integration, focusing on a distributed network of knowledge providers connected by web application programming interfaces (APIs). </p>
                 <p>Relative to centralized solutions, the approach BioThings Explorer took offers several advantages. First, the API ecosystem is easily extensible by the community since there is no gatekeeper controlling access to a centralized resource. The results and scope of the BTE system will continuously and automatically improve as the community-maintained registry of API components continues to grow. Second, the data retrieved are always up-to-date with the source and not dependent on having a frequent synchronization schedule. Third, the distributed model is more scalable to heavy usage since the BTE client is run on each user's own computing infrastructure, so there is no centralized component that would be a single point of failure.</p>
                 <h2 id="translate">Translate User Query Into API Call(s)</h2>
                 <ul>Step 1: Which API(s) should be utilized to answer the user query?</ul>
-                <img src="../static/img/undirected_graph_bte.png" style="width:100%"">
+                <img src="./static/img/undirected_graph_bte.png" style="width:100%"">
                 <p>BioThings Explorer maintains a meta-knowledge graph (meta-KG) that describes compatibility of inputs and outputs between each API. </p>
                 <p>When a user asks questions like “What drugs might be used to treat NGLY1-deficiency?”. BioThings Explorer will look through the meta-KG and finds all APIs which could connect from DiseaseOrPhenotypicFeature to ChemicalSubstance. That’s leads to 4 APIs currently integrated in BioThings Explorer, including COHD, Mydisease.info, Semmed and MyChem.info.</p>
                 <h2 id="normalize">Normalize API Response</h2>
