@@ -13,6 +13,8 @@ class HomeHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("about.html", messages=None)
 
+"""
+
 class MainHandler(tornado.web.RequestHandler):
     @tornado.web.addslash
     def get(self):
@@ -28,6 +30,7 @@ class DisplayHandler1(tornado.web.RequestHandler):
     @tornado.web.addslash
     def get(self):
         self.render("display.html", messages=None)
+"""
 
 
 class Application(tornado.web.Application):
@@ -44,6 +47,7 @@ class Application(tornado.web.Application):
             (r"/explorer/static/(.*)",
              tornado.web.StaticFileHandler,
              {'path': settings['static_path']}),
+             """
             (r"/explorer/connect/?", MainHandler),
             (r"/explorer/connect/static/(.*)",
              tornado.web.StaticFileHandler,
@@ -60,6 +64,7 @@ class Application(tornado.web.Application):
             (r"/explorer/display/static/(.*)",
              tornado.web.StaticFileHandler,
              {'path': settings['static_path']}),
+             """
         ]
 
         tornado.web.Application.__init__(self, handlers, **settings)
