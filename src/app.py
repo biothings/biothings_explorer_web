@@ -8,6 +8,11 @@ import os.path
 from handlers.displayhandler import DisplayHandler
 
 
+class HomeHandler(tornado.web.RequestHandler):
+    @tornado.web.addslash
+    def get(self):
+        self.render("about.html", messages=None)
+
 class MainHandler(tornado.web.RequestHandler):
     @tornado.web.addslash
     def get(self):
@@ -35,6 +40,10 @@ class Application(tornado.web.Application):
                                         "static")
         }
         handlers = [
+            (r"/explorer/?", HomeHandler),
+            (r"/explorer/static/(.*)",
+             tornado.web.StaticFileHandler,
+             {'path': settings['static_path']}),
             (r"/explorer/connect/?", MainHandler),
             (r"/explorer/connect/static/(.*)",
              tornado.web.StaticFileHandler,
@@ -58,7 +67,7 @@ class Application(tornado.web.Application):
 
 def main():
     app = Application()
-    app.listen(8854)
+    app.listen(8853)
     tornado.ioloop.IOLoop.instance().start()
 
 
