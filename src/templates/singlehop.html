@@ -1,0 +1,53 @@
+{%extends "base.html" %}
+{% block main %}
+<section class="load">
+  <div id="loading" style="display:None">
+    <h1 class="center-align"> We are fetching results for you </h1>
+    <div class="progress">
+      <div class="indeterminate"></div>
+    </div>
+    <h2 class="center-align"> List of APIs we are calling</h2>
+    <ul class="center-align">
+      <li>MyGene.info</li>
+      <li>MyVariant.info</li>
+      <li>MyChem.info</li>
+      <li>MyDisease.info</li>
+      <li>Semmdb API</li>
+      <li>BioLink API</li>
+      <li>DGIdb API</li>
+    </ul>
+  </div>
+</section>
+<section class="form-section">
+  <form method="post" action="../display" method= "post">
+    <input id="input_obj" name="input_obj" style="display:None">
+    <input id="output_cls" name="output_cls" style="display:None">
+    <input id="edge" name="edge" style="display:None">
+    <div class="row">
+      <div class="col s8 offset-s2 m3 offset-m2">
+        <span> Input</span>
+        <input id="autocomplete-input" />
+      </div>
+      <div class="col s8 offset-s2 m3 offset-m1">
+        <span> Edges</span>
+        <div>
+          <select multiple="multiple" id="edge1" name="edge1" disabled="disabled" placeholder="please specify input first">
+          </select>
+        </div>
+      </div>
+      <div class="col s8 offset-s2 m3 offset-m1">
+        <span> Output Types</span>
+        <div>
+          <select multiple="multiple" id="output_type" name="output_type" disabled="disabled" placeholder="please specify input first">
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s2 offset-s5">
+        <input class="waves-effect waves-light btn" type="submit" value="submit" onclick="loading()" style="margin-left:25%">
+    </div>
+  </form>
+</section>
+<script src="./static/js/singlehop.js"></script>
+{% end %}

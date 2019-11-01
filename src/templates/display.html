@@ -1,0 +1,88 @@
+<html>
+<head>
+    <title>BioThings Explorer</title>
+    <script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/css/materialize.min.css">
+    <script type="text/javascript" src="https://unpkg.com/vis-network@5.2.4/dist/vis-network.min.js"></script>
+    <link href="https://unpkg.com/vis-network@5.2.4/dist/vis-network.css" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/js/materialize.min.js"></script>
+    <style type="text/css">
+        #mynetwork {
+          width: 100%;
+          border: 1px solid lightgray;
+          display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <section class="result">
+        <div id="input" style="display:None">{{ myvalue }}</div>
+        <div class="row">
+            <div class="col s8 m8">
+                <div id="mynetwork"></div>
+            </div>
+            <div class="col s8 m3">
+                <div id="mytable">
+                    <table class="responsive-table">
+                        <thead>
+                          <tr>
+                              <th>Name</th>
+                              <th>Value</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<script type="text/javascript">
+  // create an array with nodes
+  graph = jQuery.parseJSON($("#input").text());
+  var layoutMethod = "directed";
+  var nodes = new vis.DataSet(graph.nodes);
+
+  // create an array with edges
+  var edges = new vis.DataSet(graph.links);
+  // create a network
+  var container = document.getElementById('mynetwork');
+  var data = {
+    nodes: nodes,
+    edges: edges
+  };
+  var options = {layout: {
+          hierarchical: {
+            sortMethod: layoutMethod
+          }
+        }};
+  var network = new vis.Network(container, data, options);
+  network.on("click", function (params) {
+    if (params.nodes.length > 0) {
+        var node_data = nodes.get(params.nodes[0]);
+        $("#mytable tbody").empty();
+        for (var key in node_data) {
+            if (!['color', 'level'].includes(key)) {
+                var row = "<tr><td>" + key + "</td><td>" + node_data[key] + "</td>";
+                $("#mytable tbody").append(row);
+            }
+        };
+    } else if (params.edges.length > 0) {
+        var edge_data = edges.get(params.edges[0]).info;
+        $("#mytable tbody").empty();
+        for (var key in edge_data) {
+            if (!['@type', '$input'].includes(key)) {
+                var row = "<tr><td>" + key + "</td><td>" + edge_data[key] + "</td>";
+                $("#mytable tbody").append(row);
+            };
+        };
+    }
+    console.log(params.nodes);
+    console.log(nodes.get(params.nodes[0]));
+    console.log(params.edges)
+  })
+</script>
+
+</body>
+</html>

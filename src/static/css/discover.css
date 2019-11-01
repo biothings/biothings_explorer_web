@@ -1,0 +1,19 @@
+.card {
+    margin-top: 5% !important;
+}
+
+.card span {
+    color: #ff5722;
+}
+
+input {
+    height: 1rem !important;
+}
+
+.easy-autocomplete {
+    width: 80% !important;
+}
+
+b {
+    color: black !important;
+}
