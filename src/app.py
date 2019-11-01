@@ -47,7 +47,12 @@ class Application(tornado.web.Application):
             (r"/explorer/static/(.*)",
              tornado.web.StaticFileHandler,
              {'path': settings['static_path']}),
-             """
+            
+        ]
+
+        tornado.web.Application.__init__(self, handlers, **settings)
+
+"""
             (r"/explorer/connect/?", MainHandler),
             (r"/explorer/connect/static/(.*)",
              tornado.web.StaticFileHandler,
@@ -64,11 +69,7 @@ class Application(tornado.web.Application):
             (r"/explorer/display/static/(.*)",
              tornado.web.StaticFileHandler,
              {'path': settings['static_path']}),
-             """
-        ]
-
-        tornado.web.Application.__init__(self, handlers, **settings)
-
+"""
 
 def main():
     app = Application()
