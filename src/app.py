@@ -5,7 +5,7 @@ import tornado.options
 import tornado.web
 import os.path
 
-from handlers.displayhandler import DisplayHandler
+#from handlers.displayhandler import DisplayHandler
 
 
 class HomeHandler(tornado.web.RequestHandler):
