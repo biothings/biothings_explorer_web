@@ -69,13 +69,13 @@
                     
             <div id="main" data-spy="scroll" data-target="#navbar-example3" data-offset="0" style="width:60%">
                 <h4 id="intro">Introduction</h4>
-                <p>BioThings Explorer(BTE) is an engine for autonomously querying a distributed knowledge graph. The distributed knowledge graph is made up of biomedical APIs that have been annotated with semantically-precise descriptions of their inputs and outputs. The knowledge graph is currently comprised by the APIs in this figure</p>
+                <p><strong>BioThings Explorer (BTE)</strong> is an engine for autonomously querying a distributed knowledge graph. The distributed knowledge graph is made up of biomedical APIs that have been annotated with semantically-precise descriptions of their inputs and outputs. The <strong>Meta-Knowledge graph (Meta-KG)</strong> is currently comprised by the APIs in <strong>Figure 1</strong>:</p>
                 <div class="card text-center" style="width: 100%">
-                    <h5 class="card-header">Figure 1. BioThings Explorer Meta Knowledge Graph </h5>
-                    <img class="card-img-top" src="./static/img/bte_metagraph.png" alt="BioThings Explorer Meta Knowledge Graph">
+                    <h5 class="card-header">Figure 1. BioThings Explorer Meta Knowledge Graph </h5> 
+                    <img class="card-img-top" src="./static/img/bte_metagraph.png" alt="BioThings Explorer Meta Knowledge Graph"><p>This diagram depicts the connectivity between BioLink Model entities via Translator APIs. Each API is uniquely identified by color. An edge indicates that the API returns edges corresponding to relationships between the two entity types. Although not shown in the figure, the Meta-KG also includes information on the edge predicates, which are also aligned with the BioLink Model.</p>
                 </div>
                 <br>
-                <p>Using the Meta-KG, BTE automatically chains together queries spanning multiple APIs and assembling results, thereby organizing independently-created and -maintained APIs into a cohesive distributed knowledge graph (Distributed-KG). BTE proceeds in three steps: query path planning, query path execution, and summarization/filtering/ranking.</p>
+                <p>Using the Meta-KG, BTE automatically chains together queries spanning multiple APIs and assembling results, thereby organizing independently-created and -maintained APIs into a cohesive <strong>distributed knowledge graph (Distributed-KG)</strong>. BTE proceeds in three steps: query path planning, query path execution, and summarization/filtering/ranking <strong>(Figure 2)</strong>.</p>
                 <div class="card text-center" style="width: 100%">
                     <h5 class="card-header">Figure 2. Schematic overview of the BioThings Explorer </h5>
                     <img class="card-img-top" src="./static/img/bte_overview.png" alt="BioThings Explorer Meta Knowledge Graph">
@@ -95,23 +95,24 @@
                 </p><br>
                 <hr>
                 <h5 id="query-path-plan">Phase 1: Query Path Planning</h5>
-                <p><br>When a user query is provided, BTE will first perform query path planning. Both query types can be generalized to a common query template (which in these examples asks for all the ways in which Diseases can be connected to Drugs). </p>
+                <p><br>When a user query is provided, BTE will first perform query path planning <strong>(Figure 3)</strong>. Both query types can be generalized to a common query template (which in these examples asks for all the ways in which Diseases can be connected to Drugs). </p>
                 <p>In <b>Step #1</b>, BTE queries the Meta-KG for all the entity types that can join Diseases and Drugs. (For simplicity, this example restricts paths one intermediate node, but query paths can theoretically be of any length. This simplified example also does not specify predicates describing how entities are related, but those can also be incorporated into the query template as filters.) </p>
-                <p>If, for example, we then focus on the Disease - Gene - Drug query metapath, <b>Step #2</b> would then make a second query on the Meta-KG, returning the specific APIs that report Disease - Gene relationships and the specific APIs that report Gene - Drug relationships. The output of this process is a query path plan (highlighted in red), which indicates which sequence of API calls can generate results that match the original query template. (Figure 3)
+                <p>If, for example, we then focus on the Disease - Gene - Drug query metapath, <b>Step #2</b> would then make a second query on the Meta-KG, returning the specific APIs that report Disease - Gene relationships and the specific APIs that report Gene - Drug relationships. The output of this process is a query path plan (highlighted in red), which indicates which sequence of API calls can generate results that match the original query template. 
                     </p><br>
                 <div class="card text-center" style="width: 100%">
                     <h5 class="card-header">Figure 3. Query Path Planning in BioThings Explorer. </h5>
-                    <img class="card-img-top" src="./static/img/query_path_plan.svg" alt="Query Path Planning">
+                    <img class="card-img-top" src="./static/img/query_path_plan.svg" alt="Query Path Planning"> <p>BTE accepts two types of queries as input. "Predict queries" seek to find relationships between one specific entity and a class of entity types. "Explain queries" seek to explain the relationship between two specific entities. Both query types can be generalized to a common query template (which in these examples asks for all the ways in which Diseases can be connected to Drugs). In Step #1, BTE queries the Meta-KG for all the entity types that can join Diseases and Drugs. (For simplicity, this example restricts paths to one intermediate node, but query paths can theoretically be of any length. This simplified example also does not specify predicates describing how entities are related, but those can also be incorporated into the query template as filters.) If, for example, we then focus on the Disease - Gene - Drug query path, Step #2 then make a second query on the Meta- KG, returning the specific APIs that report Disease - Gene relationships and the specific APIs that report Gene - Drug relationships. The output of this process is a query path plan (highlighted in red), which indicates which sequences of API calls can generate results that match the original query template.</p>
                 </div>
                 <br>
                 <hr>
                 <h5 id="query-path-execute">Phase 2: Query Path Execution</h5>
-                <p><br>In the second query path execution phase, BTE programmatically and autonomously executes the query path plan (Figure 4). </p>
+                <p><br>In the second query path execution phase, BTE programmatically and autonomously executes the query path plan <strong>(Figure 4)</strong>. </p>
                 <p>Here, BTE uses the semantic API annotations in the meta-KG to call each API with the appropriate inputs, and to map the API output to the Translator-standard <a href="https://biolink.github.io/biolink-model/" >Biolink Model</a>. </p>
                 <p>Moreover, BTE performs <b>ID-to-object translation</b>, which facilitates API chaining when one APIs output shares the same semantic type as another API's input (e.g., "gene"), but differs by the specific identifiers used (e.g., Entrez Gene vs Ensembl). </p><br>
                 <div class="card text-center" style="width: 100%">
                     <h5 class="card-header">Figure 4. Query Path Execution in BioThings Explorer. </h5>
                     <img class="card-img-top" src="./static/img/query_path_execute.png" alt="Query Path Planning">
+                    <p>Given a query path plan, BTE can completely automate the execution of that query plan across multiple, distributed APIs. For example, the query path planning process illustrated in Figure 2 identified API 1 and API 4 as being able to satisfy a Disease - Gene - Drug query. While we know that API 1 and API 4 are compatible because they involve a gene as the output and input, respectively, API 1 produces an Entrez Gene identifier as output and API 4 takes an Ensembl Gene identifier as input. BTE handles that handoff by translating every identifier to an object (which contains all equivalent identifiers) in between API calls. (BTE is able to do ID-to-object translation for several <a href="https://biolink.github.io/biolink-model/docs/BiologicalEntity.html">BioLink BiologicalEntity types</a>, including Gene, ChemicalSubstance, DiseaseOrPhenotypicFeature, SequenceVariant, and Pathway using entity-specific APIs like <a href="https://mygene.info">MyGene.info</a> and <a href="https://myvariant.info">MyVariant.info</a>. Translation for additional entity types can be easily created using the <a href="http://docs.biothings.io/en/latest/">BioThings SDK</a> following the MyGene.info and MyVariant.info models.) After successful execution on both API 1 and API 4, all query path results (including the intermediate Gene objects) can be exported in a variety of formats, including the Translator Reasoner API standard.</p>
                 </div>
                 <br>
                 <hr>
@@ -127,23 +128,24 @@
                 <br>
                 <hr>
                 <h4 id="demo">Jupyter Notebook Demo</h4>
-                <p>Proof-of-concept implementations of BTE are now available. (Note: Please follow the installation instructions <a href="https://github.com/biothings/biothings_explorer/tree/master/jupyter%20notebooks" target="_blank">here</a> if you would like to run these notebooks.)</p>.
+                <p>Proof-of-concept implementations of BTE are now available. (Note: Please follow the installation instructions <a href="https://github.com/biothings/biothings_explorer/tree/master/jupyter%20notebooks" target="_blank">here</a> if you would like to run these notebooks.)</p>
                 <br>
                 <h5 id="predict">Predict</h5>
-                <p>Below is a jupyter notebook demo (<a href="https://github.com/biothings/biothings_explorer/blob/master/jupyter%20notebooks/PREDICT_demo.ipynb" target="_blank">link</a>) of how BTE could be used to perform the <b>"Predict"</b> tasks. The notebook aims at finding <b>DRUGS</b> that are associated with <b>GENES</b> which invovled in <b>HPYERPHENYLALANINEMIA (disease)</b></p>
+                <p>Below is a jupyter notebook demo (<a href="https://github.com/biothings/biothings_explorer/blob/master/jupyter%20notebooks/PREDICT_demo.ipynb" target="_blank">link</a>) of how BTE could be used to perform the <b>"Predict"</b> tasks. The notebook aims at finding <b>DRUGS</b> that are associated with <b>GENES</b> which invovled in <b>HYPERPHENYLALANINEMIA (disease)</b>.</p>
                 <iframe width="100%" height="700" src="https://htmlpreview.github.io/?https://github.com/biothings/biothings_explorer/blob/master/jupyter%20notebooks/PREDICT_demo.html" frameborder="0" allowfullscreen></iframe> 
                 <br>
                 <hr>
                 <br>
                 <h5 id="explain">Explain</h5>
                 <br>
-                <p>Below is a jupyter notebook demo (<a href="https://github.com/biothings/biothings_explorer/blob/master/jupyter%20notebooks/EXPLAIN_demo.ipynb" target="_blank">link</a>) of how BTE could be used to perform the <b>"Explain"</b> tasks. The notebook aims at finding the underlying mechanism that  <b>IMATINIB (drug)</b> can be used to treat <b>ASTHMA (disease)</b></p>
+                <p>Below is a jupyter notebook demo (<a href="https://github.com/biothings/biothings_explorer/blob/master/jupyter%20notebooks/EXPLAIN_demo.ipynb" target="_blank">link</a>) of how BTE could be used to perform the <b>"Explain"</b> tasks. The notebook aims at finding the underlying mechanism that  <b>IMATINIB (drug)</b> can be used to treat <b>CHRONIC MYELOGENOUS LEUKEMIA (disease)</b>.</p>
                 <iframe width="100%" height="700" src="https://htmlpreview.github.io/?https://github.com/biothings/biothings_explorer/blob/master/jupyter%20notebooks/EXPLAIN_demo.html" frameborder="0" allowfullscreen></iframe> 
                 
                 <br>
                 <hr>
                 <h4 id="future">Future Vision</h4>
                 <br>
+                <p>The pseudocode below shows our high-level vision for how the BTE python client will evolve in the coming months.</p>
                 <script src="https://gist.github.com/andrewsu/a9c713505fe66692f6c9547dba0f0a32.js"></script>
             </div>
         </div>
